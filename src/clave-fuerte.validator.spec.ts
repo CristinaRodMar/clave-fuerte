@@ -1,5 +1,5 @@
 import { validarClave } from "./main";
-import { tieneCaracteresEspeciales, tieneLongitudMinima, tieneMayusculasYMinusculas, tieneNumeros, noContieneNombreUsuario, noContienePalabrasComunes } from "./clave-fuerte.validator"
+import { tieneLongitudMinima, tieneMayusculasYMinusculas, tieneNumeros, noContieneNombreUsuario, noContienePalabrasComunes } from "./clave-fuerte.validator"
 
 
 export const commonPasswords: string[] = [
