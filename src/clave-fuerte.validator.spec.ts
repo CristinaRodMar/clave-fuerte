@@ -1,6 +1,8 @@
-import { validarClave } from "./main"; 
+import { validarClave } from "./main";
+import { tieneCaracteresEspeciales, tieneLongitudMinima, tieneMayusculasYMinusculas, tieneNumeros, noContieneNombreUsuario, noContienePalabrasComunes } from "./clave-fuerte.validator"
 
-const commonPasswords: string[] = [
+
+export const commonPasswords: string[] = [
     "password", "123456", "qwerty", "admin",
     "letmein", "welcome", "monkey", "sunshine",
     "password1", "123456789", "football", "iloveyou",
@@ -75,5 +77,102 @@ const nombreUsuario = 'testuser';
     // Assert
     expect(resultado.esValida).toBe(true);
     expect(resultado.error).toBeUndefined();
+    });
+});
+
+describe("tieneMayusculasYMinusculas", () => {
+    it("debería devolver esValida si tiene mayúsculas y minúsculas", () => {
+    // Arrange
+    const clave = "AaBbCc";
+
+    // Act
+    const resultado = tieneMayusculasYMinusculas(clave);
+
+    // Assert
+    expect(resultado.esValida).toBe(true);
+    });
+});
+
+describe("tieneNumeros", () => {
+    it("debería devolver esValida si tiene números", () => {
+    // Arrange
+    const clave = "Abc123";
+
+    // Act
+    const resultado = tieneNumeros(clave);
+
+    // Assert
+    expect(resultado.esValida).toBe(true);
+    });
+});
+
+describe("tieneLongitudMinima", () => {
+    it("debería devolver un error si no cumple con la longitud mínima", () => {
+    // Arrange
+    const clave = "Abc123";
+
+    // Act
+    const resultado = tieneLongitudMinima(clave);
+
+    // Assert
+    expect(resultado.esValida).toBe(false);
+    expect(resultado.error).toBe("La clave debe tener una longitud mínima de 8 caracteres");
+    });
+});
+
+describe("noContieneNombreUsuario", () => {
+    it("debería devolver esValida si no contiene el nombre de usuario", () => {
+    // Arrange
+    const nombreUsuario = "usuario123";
+    const clave = "Abc123";
+
+    // Act
+    const resultado = noContieneNombreUsuario(nombreUsuario, clave);
+
+    // Assert
+    expect(resultado.esValida).toBe(true);
+    });
+});
+
+describe("noContienePalabrasComunes", () => {
+    it("debería devolver un error si está en la lista de contraseñas comunes", () => {
+    // Arrange
+    const clave = "password";
+
+    // Act
+    const resultado = noContienePalabrasComunes(clave, ["password", "123456"]);
+
+    // Assert
+    expect(resultado.esValida).toBe(false);
+    expect(resultado.error).toBe("La clave no debe de contener palabras comunes");
+    });
+});
+
+describe("validarClave", () => {
+    it("debería devolver esValida si todas las validaciones son exitosas", () => {
+    // Arrange
+    const nombreUsuario = "usuario123";
+    const clave = "Abc9@rty";
+    const commonPasswords = ["password", "123456"];
+
+    // Act
+    const resultado = validarClave(nombreUsuario, clave, commonPasswords);
+
+    // Assert
+    expect(resultado.esValida).toBe(true);
+    });
+
+    it("debería devolver el error concreto si alguna validación falla", () => {
+    // Arrange
+    const nombreUsuario = "usuario123";
+    const clave = "password";
+    const commonPasswords = ["password", "123456"];
+
+    // Act
+    const resultado = validarClave(nombreUsuario, clave, commonPasswords);
+
+    // Assert
+    expect(resultado.esValida).toBe(false);
+    expect(resultado.error).toBe("La clave debe de tener mayúsculas y minúsculas");
     });
 });

@@ -4,7 +4,6 @@ export interface ValidacionClave {
 }
 
 // La clave debe de tener mayúsculas y minúsculas.
-
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
     const tieneMayusculas = /[A-Z]/.test(clave);
     const tieneMinusculas = /[a-z]/.test(clave);

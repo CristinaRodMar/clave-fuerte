@@ -1,5 +1,5 @@
 import { ValidacionClave, tieneCaracteresEspeciales,tieneLongitudMinima,tieneMayusculasYMinusculas,tieneNumeros, noContieneNombreUsuario,noContienePalabrasComunes } from "./clave-fuerte.validator";
- 
+
 export const validarClave = (nombreUsuario: string, clave: string, commonPasswords: string[]): ValidacionClave => {
 let resultado = tieneLongitudMinima(clave);
     if (!resultado.esValida) return resultado;
