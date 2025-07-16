@@ -28,7 +28,7 @@ const tieneNumeros = (clave: string): ValidacionClave => {
 const tieneCaracteresEspeciales = (clave: string): ValidacionClave => {
     if (!/[@#_+!?$%^&*()-=]/.test(clave))
     {
-        return{esValida: false, error: "La clave debe tener caracteres"}
+        return{esValida: false, error: "La clave debe de tener números"}
     }
     return { esValida: true };
 };
