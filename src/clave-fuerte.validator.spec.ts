@@ -1,4 +1,4 @@
-import { validarClave } from "./clave-fuerte.validator"; 
+import { validarClave } from "./main"; 
 
 const commonPasswords: string[] = [
     "password", "123456", "qwerty", "admin",
